@@ -11,11 +11,18 @@ interface PauseProps {
 
 const PauseButton = (props: PauseProps) => {
   if (props.isPaused) {
-    return <button onClick={() => props.dispatch(unpause())}>Paused</button>;
+    return (
+      <button
+        className="rounded-none px-4 py-1 border border-purple-200 bg-violet-400"
+        onClick={() => props.dispatch(unpause())}
+      >
+        Paused
+      </button>
+    );
   }
   return (
     <button
-      className="rounded-none px-4 py-1 border border-purple-200"
+      className="rounded-none px-4 py-1 border border-purple-200 bg-violet-50"
       onClick={() => props.dispatch(pause())}
     >
       Pause
@@ -28,7 +35,7 @@ const Controls = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <div className="my-4 mx-2">
       <PauseButton dispatch={dispatch} isPaused={isPaused} />
     </div>
   );
