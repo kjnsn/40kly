@@ -1,7 +1,13 @@
 import { Application } from "pixi.js";
+import React from "react";
+import { createRoot } from "react-dom/client";
 import Game from "../lib/game";
+import Page from "./interface/page";
 import { loadResources } from "./resources";
 import update from "./update";
+
+import "./reset.css";
+import "./index.css";
 
 const backgroundWidth = 721;
 const backgroundHeight = 726;
@@ -16,7 +22,7 @@ const app = new Application({
 
 // The application will create a canvas element for you that you
 // can then insert into the DOM
-document.body.appendChild(app.view as any);
+// document.body.appendChild(app.view as any);
 
 const game = new Game();
 
@@ -40,3 +46,8 @@ loadResources(app).then((resources) => {
     update(deltaMs, game);
   });
 });
+
+const root = document.createElement("div");
+document.body.appendChild(root);
+
+createRoot(root).render(<Page gameCanvas={app.view} />);
