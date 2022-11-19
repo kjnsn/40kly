@@ -5,6 +5,8 @@ import Game from "../lib/game";
 import Page from "./interface/page";
 import { loadResources } from "./resources";
 import update from "./update";
+import store from "../lib/state/store";
+import { Provider } from "react-redux";
 
 import "./index.css";
 
@@ -23,7 +25,7 @@ const app = new Application({
 // can then insert into the DOM
 // document.body.appendChild(app.view as any);
 
-const game = new Game();
+const game = new Game(store);
 
 loadResources(app).then((resources) => {
   // Setup the position of the background.
@@ -49,4 +51,8 @@ loadResources(app).then((resources) => {
 const root = document.createElement("div");
 document.body.appendChild(root);
 
-createRoot(root).render(<Page gameCanvas={app.view} />);
+createRoot(root).render(
+  <Provider store={store}>
+    <Page gameCanvas={app.view} />
+  </Provider>
+);
