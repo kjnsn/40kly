@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "mocha --require ts-node/register --recursive tests/*",
+    "test": "mocha --require ts-node/register 'tests/**/*_test.ts'",
     "build": "webpack --config webpack.config.cjs",
     "dev": "webpack serve --open"
   },
@@ -15,6 +15,7 @@
   "license": "GPL-2.0-only",
   "devDependencies": {
     "@types/mocha": "^10.0.0",
+    "copy-webpack-plugin": "^11.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mocha": "^10.1.0",
     "ts-loader": "^9.4.1",
