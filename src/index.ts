@@ -1,5 +1,6 @@
-import { Application, Sprite, Assets } from "pixi.js";
+import { Application } from "pixi.js";
 import Game from "../lib/game";
+import { loadResources } from "./resources";
 import update from "./update";
 
 const backgroundWidth = 721;
@@ -17,33 +18,25 @@ const app = new Application({
 // can then insert into the DOM
 document.body.appendChild(app.view as any);
 
-// load the texture we need
-const cityTexture = await Assets.load("data/city1.png");
-
-// Load the background
-const background = await Assets.load("data/back.jpg");
-
 const game = new Game();
 
-// This creates a texture from the background image.
-const backgroundTex = new Sprite(background);
-const city = new Sprite(cityTexture);
+loadResources(app).then((resources) => {
+  // Setup the position of the background.
+  resources.background.x = 0;
+  resources.background.y = 0;
 
-// Setup the position of the background.
-backgroundTex.x = 0;
-backgroundTex.y = 0;
+  // Setup the position of the city.
+  resources.city.x = app.view.width / 2 - resources.city.width / 2;
+  resources.city.y = app.view.height / 2 - resources.city.height / 2;
 
-// Setup the position of the city.
-city.x = app.view.width / 2 - city.width / 2;
-city.y = app.view.height / 2 - city.height / 2;
+  // Add the background to the scene we are building
+  app.stage.addChild(resources.background);
 
-// Add the background to the scene we are building
-app.stage.addChild(backgroundTex);
+  app.stage.addChild(resources.city);
 
-// Add the city on top.
-app.stage.addChild(city);
-
-// Listen for frame updates
-app.ticker.add((deltaMs) => {
-  update(deltaMs, game);
+  // Add the city on top.
+  // Listen for frame updates
+  app.ticker.add((deltaMs) => {
+    update(deltaMs, game);
+  });
 });

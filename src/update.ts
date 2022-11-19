@@ -10,4 +10,6 @@ export default function update(deltaMs: number, game: Game) {
   if (game.isPaused || deltaMs <= 0) {
     return;
   }
+
+  game.incUpdateCounter();
 }
