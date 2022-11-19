@@ -6,7 +6,7 @@ import Page from "./interface/page";
 import { loadResources } from "./resources";
 import update from "./update";
 
-import "./reset.css";
+// import "./reset.css";
 import "./index.css";
 
 const backgroundWidth = 721;
