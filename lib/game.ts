@@ -6,8 +6,6 @@ interface Point {
 }
 
 export default class Game {
-  blink: number = 0xff;
-
   private _updateCounter = 0;
   private reduxStore: RootStore;
 

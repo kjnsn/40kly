@@ -14,17 +14,16 @@ export default function update(
 ) {
   // Skip updates if the game is paused, or if there is no time available.
   if (game.isPaused()) {
+    if (resources.city.playing) {
+      resources.city.stop();
+    }
     return;
   }
 
-  // Set the blink tint.
-  game.blink = 0x80 | (0xff & (game.blink + 0x10));
-  console.log(game.blink);
-
-  // Blink the city.
-  resources.city.tint = utils.rgb2hex([game.blink, game.blink, 0]);
-
-  console.log(deltaMs);
+  // Ensure the city is blinking.
+  if (!resources.city.playing) {
+    resources.city.play();
+  }
 
   game.incUpdateCounter();
 }

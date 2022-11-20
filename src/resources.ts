@@ -1,7 +1,14 @@
-import { Application, Sprite, Assets, Resource, Texture } from "pixi.js";
+import {
+  Application,
+  Sprite,
+  Assets,
+  Resource,
+  Texture,
+  AnimatedSprite,
+} from "pixi.js";
 
 export interface Resources {
-  city: Sprite;
+  city: AnimatedSprite;
   background: Sprite;
   createWell(): void;
 }
@@ -10,7 +17,7 @@ export interface Resources {
  * A fake resources class for use in tests.
  */
 export class FakeResources implements Resources {
-  city: Sprite = new Sprite();
+  city: AnimatedSprite = new AnimatedSprite([]);
   background: Sprite = new Sprite();
 
   createWell(): void {
@@ -19,20 +26,40 @@ export class FakeResources implements Resources {
 }
 
 class LoadedResources implements Resources {
-  readonly city: Sprite;
+  readonly city: AnimatedSprite;
   readonly background: Sprite;
 
-  constructor(
-    cityTexture: Texture<Resource>,
-    backgroundTexture: Texture<Resource>
-  ) {
+  constructor(city: AnimatedSprite, backgroundTexture: Texture<Resource>) {
     this.background = new Sprite(backgroundTexture);
-    this.city = new Sprite(cityTexture);
+    this.city = city;
   }
 
   createWell(): void {
     throw new Error("Method not implemented.");
   }
+}
+
+async function loadCityAnimation(): Promise<AnimatedSprite> {
+  const [city1, city2, city3] = await Promise.all([
+    Assets.load("data/city-frame-0.png"),
+    Assets.load("data/city-frame-1.png"),
+    Assets.load("data/city-frame-2.png"),
+  ]);
+
+  return new AnimatedSprite([
+    {
+      texture: city1,
+      time: 1000,
+    },
+    {
+      texture: city2,
+      time: 50,
+    },
+    {
+      texture: city3,
+      time: 100,
+    },
+  ]);
 }
 
 /**
@@ -41,10 +68,10 @@ class LoadedResources implements Resources {
  */
 export async function loadResources(): Promise<Resources> {
   // load the texture we need
-  const cityTexture = await Assets.load("data/city1.png");
+  const city = await loadCityAnimation();
 
   // Load the background
   const background = await Assets.load("data/back.jpg");
 
-  return new LoadedResources(cityTexture, background);
+  return new LoadedResources(city, background);
 }
