@@ -27,7 +27,7 @@ const app = new Application({
 
 const game = new Game(store);
 
-loadResources(app).then((resources) => {
+loadResources().then((resources) => {
   // Setup the position of the background.
   resources.background.x = 0;
   resources.background.y = 0;
@@ -44,8 +44,10 @@ loadResources(app).then((resources) => {
   // Add the city on top.
   // Listen for frame updates
   app.ticker.add((deltaMs) => {
-    update(deltaMs, game);
+    update(deltaMs, game, resources);
   });
+
+  app.ticker.start();
 });
 
 const root = document.createElement("div");
