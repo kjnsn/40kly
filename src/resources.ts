@@ -5,12 +5,19 @@ import {
   Resource,
   Texture,
   AnimatedSprite,
+  Graphics,
+  DisplayObject,
 } from "pixi.js";
 
 export interface Resources {
   city: AnimatedSprite;
   background: Sprite;
-  createWell(): void;
+  createWell(point: Point): DisplayObject;
+}
+
+interface Point {
+  x: number;
+  y: number;
 }
 
 /**
@@ -20,8 +27,8 @@ export class FakeResources implements Resources {
   city: AnimatedSprite = new AnimatedSprite([]);
   background: Sprite = new Sprite();
 
-  createWell(): void {
-    throw new Error("Method not implemented.");
+  createWell(point: Point): Sprite {
+    return new Sprite();
   }
 }
 
@@ -29,13 +36,36 @@ class LoadedResources implements Resources {
   readonly city: AnimatedSprite;
   readonly background: Sprite;
 
-  constructor(city: AnimatedSprite, backgroundTexture: Texture<Resource>) {
+  private wellTexture: Texture<Resource>;
+
+  constructor(
+    city: AnimatedSprite,
+    backgroundTexture: Texture<Resource>,
+    wellTexture: Texture<Resource>
+  ) {
     this.background = new Sprite(backgroundTexture);
     this.city = city;
+    this.wellTexture = wellTexture;
   }
 
-  createWell(): void {
-    throw new Error("Method not implemented.");
+  /**
+   * Creates a steam well sprite.
+   * @param point The x and y position to place the well on.
+   * @returns A sprite for a steam well.
+   */
+  createWell(point: Point): DisplayObject {
+    // TODO: Well sprite is not drawing, so create a placeholder square.
+    // const well = new Sprite(this.wellTexture);
+
+    const graphics = new Graphics();
+    graphics.beginFill(0xde3249);
+    graphics.drawRect(0, 0, 16, 16);
+    graphics.endFill();
+
+    graphics.x = point.x;
+    graphics.y = point.y;
+
+    return graphics;
   }
 }
 
@@ -67,11 +97,12 @@ async function loadCityAnimation(): Promise<AnimatedSprite> {
  * @returns A resources instance wrapped in a promise.
  */
 export async function loadResources(): Promise<Resources> {
-  // load the texture we need
-  const city = await loadCityAnimation();
+  // load the textures
+  const [city, background, well] = [
+    await loadCityAnimation(),
+    await Assets.load("data/back.jpg"),
+    await Assets.load("data/well.png"),
+  ];
 
-  // Load the background
-  const background = await Assets.load("data/back.jpg");
-
-  return new LoadedResources(city, background);
+  return new LoadedResources(city, background, well);
 }

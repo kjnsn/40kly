@@ -41,6 +41,10 @@ loadResources().then((resources) => {
 
   app.stage.addChild(resources.city);
 
+  // Create a well next to the city.
+  const well = resources.createWell({ x: 100, y: 100 });
+  app.stage.addChild(well);
+
   // Add the city on top.
   // Listen for frame updates
   app.ticker.add((deltaMs) => {

@@ -1,10 +1,5 @@
 import { RootStore } from "./state/store";
 
-interface Point {
-  x: number;
-  y: number;
-}
-
 export default class Game {
   private _updateCounter = 0;
   private reduxStore: RootStore;
