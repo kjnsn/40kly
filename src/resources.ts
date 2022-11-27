@@ -24,7 +24,10 @@ interface Point {
  * A fake resources class for use in tests.
  */
 export class FakeResources implements Resources {
-  city: AnimatedSprite = new AnimatedSprite([]);
+  city: AnimatedSprite = new AnimatedSprite(
+    [{ texture: Texture.EMPTY, time: 0 }],
+    /* autoUpdate= */ false
+  );
   background: Sprite = new Sprite();
 
   createWell(point: Point): Sprite {
