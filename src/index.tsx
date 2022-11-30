@@ -3,7 +3,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import Game from "../lib/game";
 import Page from "./interface/page";
-import { loadResources } from "./resources";
+import { atPoint, loadResources } from "./resources";
 import update from "./update";
 import store from "../lib/state/store";
 import { Provider } from "react-redux";
@@ -42,7 +42,7 @@ loadResources().then((resources) => {
   app.stage.addChild(resources.city);
 
   // Create a well next to the city.
-  const well = resources.createWell({ x: 100, y: 100 });
+  const well = resources.createWell(atPoint(100, 100));
   app.stage.addChild(well);
 
   // Add the city on top.

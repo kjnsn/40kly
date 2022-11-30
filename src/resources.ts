@@ -20,6 +20,10 @@ interface Point {
   y: number;
 }
 
+export function atPoint(x: number, y: number): Point {
+  return { x, y };
+}
+
 /**
  * A fake resources class for use in tests.
  */
