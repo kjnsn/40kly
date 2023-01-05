@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 interface CityState {
-  steamPressure: number;
+  steamPressure: number
 }
 
 interface State {
-  isPaused: boolean;
-  city: CityState;
+  isPaused: boolean
+  city: CityState
 }
 
 const initialState: State = {
   isPaused: false,
   city: {
-    steamPressure: 0,
-  },
-};
+    steamPressure: 0
+  }
+}
 
 export const gameSlice = createSlice({
-  name: "game",
+  name: 'game',
   initialState,
   reducers: {
     pause: (state) => {
@@ -25,15 +25,15 @@ export const gameSlice = createSlice({
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
       // immutable state based off those changes
-      state.isPaused = true;
+      state.isPaused = true
     },
     unpause: (state) => {
-      state.isPaused = false;
-    },
-  },
-});
+      state.isPaused = false
+    }
+  }
+})
 
 // Action creators are generated for each case reducer function
-export const { pause, unpause } = gameSlice.actions;
+export const { pause, unpause } = gameSlice.actions
 
-export default gameSlice.reducer;
+export default gameSlice.reducer

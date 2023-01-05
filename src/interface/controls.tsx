@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react'
 
-import { useAppSelector, useAppDispatch } from "../hooks";
-import { AppDispatch } from "../../lib/state/store";
-import { pause, unpause } from "../../lib/state/game_slice";
+import { useAppSelector, useAppDispatch } from '../hooks'
+import { AppDispatch } from '../../lib/state/store'
+import { pause, unpause } from '../../lib/state/game_slice'
 
 interface PauseProps {
-  dispatch: AppDispatch;
-  isPaused: boolean;
+  dispatch: AppDispatch
+  isPaused: boolean
 }
 
 const PauseButton = (props: PauseProps) => {
@@ -18,7 +18,7 @@ const PauseButton = (props: PauseProps) => {
       >
         Paused
       </button>
-    );
+    )
   }
   return (
     <button
@@ -27,18 +27,18 @@ const PauseButton = (props: PauseProps) => {
     >
       Pause
     </button>
-  );
-};
+  )
+}
 
 const Controls = () => {
-  const isPaused: boolean = useAppSelector((state) => state.game.isPaused);
-  const dispatch = useAppDispatch();
+  const isPaused: boolean = useAppSelector((state) => state.game.isPaused)
+  const dispatch = useAppDispatch()
 
   return (
     <div className="my-4 mx-2">
       <PauseButton dispatch={dispatch} isPaused={isPaused} />
     </div>
-  );
-};
+  )
+}
 
-export default Controls;
+export default Controls
