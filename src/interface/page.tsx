@@ -1,6 +1,7 @@
 import React from 'react'
 import { ICanvas } from 'pixi.js'
 import Controls from './controls'
+import Status from './status'
 
 interface Props {
   gameCanvas: ICanvas
@@ -15,15 +16,18 @@ class Page extends React.Component<Props> {
   }
 
   componentDidMount (): void {
-    this.containerRef.current.appendChild(this.props.gameCanvas as any)
+    if (this.containerRef.current != null) {
+      this.containerRef.current.appendChild(this.props.gameCanvas as any)
+    }
   }
 
-  render () {
+  render (): JSX.Element {
     return (
       <div className="flex">
         <div className="flex-none" ref={this.containerRef}></div>
         <div className="flex-auto">
           <Controls />
+          <Status />
         </div>
       </div>
     )

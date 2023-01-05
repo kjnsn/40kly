@@ -1,6 +1,5 @@
 import Game from '../lib/game'
 import { Resources } from './resources'
-import { utils } from 'pixi.js'
 
 /**
  * Updates the game state on a render loop cycle. Called every cycle.
@@ -11,7 +10,7 @@ export default function update (
   deltaMs: number,
   game: Game,
   resources: Resources
-) {
+): void {
   // Skip updates if the game is paused, or if there is no time available.
   if (game.isPaused()) {
     if (resources.city.playing) {

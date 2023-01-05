@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 interface CityState {
   steamPressure: number
+  maxSteamPressure: number
 }
 
 interface State {
@@ -12,7 +13,8 @@ interface State {
 const initialState: State = {
   isPaused: false,
   city: {
-    steamPressure: 0
+    steamPressure: 0,
+    maxSteamPressure: 100
   }
 }
 

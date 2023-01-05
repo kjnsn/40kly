@@ -1,5 +1,4 @@
 import {
-  Application,
   Sprite,
   Assets,
   Resource,

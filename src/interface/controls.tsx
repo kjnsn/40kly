@@ -9,7 +9,7 @@ interface PauseProps {
   isPaused: boolean
 }
 
-const PauseButton = (props: PauseProps) => {
+const PauseButton = (props: PauseProps): JSX.Element => {
   if (props.isPaused) {
     return (
       <button
@@ -30,7 +30,7 @@ const PauseButton = (props: PauseProps) => {
   )
 }
 
-const Controls = () => {
+const Controls = (): JSX.Element => {
   const isPaused: boolean = useAppSelector((state) => state.game.isPaused)
   const dispatch = useAppDispatch()
 
