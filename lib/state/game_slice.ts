@@ -1,10 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface CityState {
+  steamPressure: number;
+}
+
+interface State {
+  isPaused: boolean;
+  city: CityState;
+}
+
+const initialState: State = {
+  isPaused: false,
+  city: {
+    steamPressure: 0,
+  },
+};
+
 export const gameSlice = createSlice({
   name: "game",
-  initialState: {
-    isPaused: false,
-  },
+  initialState,
   reducers: {
     pause: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
