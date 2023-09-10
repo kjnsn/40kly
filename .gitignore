@@ -6,3 +6,5 @@ dist/
 
 # General
 .DS_Store
+
+coverage/
