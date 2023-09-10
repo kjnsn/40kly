@@ -1,9 +1,9 @@
 class SteamNode {
-  constructor () {}
+
 }
 
 class Pipe {
-  constructor () {}
+
 }
 
 const INITIAL_NODE_CAPACITY = 50
